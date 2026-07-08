@@ -31,7 +31,7 @@ public class CursoService {
     private final SalaService salaService;
     private final RestTemplate restTemplate;
 
-    private static final String MS_USUARIOS_URL = "http://localhost:8080/api/usuarios/";
+    private static final String MS_USUARIOS_URL = "http://localhost:8089/api/usuarios/";
 
     // ─── Lectura ─────────────────────────────────────────────────────────────
 
