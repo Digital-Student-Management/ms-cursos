@@ -1,39 +1,51 @@
-# 📚 Microservicio de Cursos (ms-cursos)
+# 📚 ms-cursos — Cursos, Niveles y Salas
 
-Este repositorio contiene el código fuente del **Microservicio de Cursos**, parte integral de la arquitectura de microservicios híbrida del **Sistema Integral de Gestión Estudiantil Digital**.
+Microservicio encargado de la estructura académica: **cursos**, **niveles** educativos y **salas**.
 
-Este módulo actúa como el núcleo central para la organización académica del colegio, gestionando los cursos y su composición anual.
-
----
-
-## 📝 Descripción del Módulo
-
-El **ms-cursos** es responsable de administrar de forma centralizada los cursos del sistema escolar. Centraliza la lógica de negocio para la creación, lectura, actualización y eliminación (CRUD) de cursos, evitando la redundancia de datos en otros microservicios y sirviendo como referencia para módulos como evaluaciones, asistencia y anotaciones.
+> Parte del proyecto GED. Para ejecutar **todo el sistema**, ver el [README raíz](../README.md).
 
 ---
 
+## ⚙️ Datos técnicos
 
-## 🛠️ Stack Tecnológico
-
-El proyecto está construido bajo los estándares más modernos de la industria:
-
-| Componente | Tecnología |
+| | |
 |---|---|
-| Lenguaje | Java 21 |
-| Framework | Spring Boot 4.x |
-| Gestor de dependencias | Maven |
-| Base de Datos | MySQL (Local) |
-| ORM | Spring Data JPA / Hibernate |
-| Validaciones | Spring Boot Validation |
-| Comunicación | REST (RestTemplate) |
-| Herramientas extra | Lombok, SpringDoc (Swagger) |
+| **Puerto** | `8082` |
+| **Base de datos** | `ms_cursos_db` (MySQL, se crea automáticamente) |
+| **Stack** | Spring Boot 4 · Java 21 · Spring Data JPA · RestTemplate · springdoc (Swagger) |
+
+Un **curso** referencia un **nivel**, una **sala** (opcional) y un **docente jefe** (usuario de ms-usuarios).
 
 ---
 
-## 🚀 Instalación y Ejecución en Entorno Local
+## 📡 Endpoints principales
 
-### 1. Clonar el repositorio
+### Cursos — `/api/cursos`
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| GET | `/api/cursos` | Lista todos los cursos |
+| GET | `/api/cursos/{id}` | Curso por ID |
+| GET | `/api/cursos/docente/{idDocente}` | Cursos de un profesor jefe |
+| POST | `/api/cursos` | Crea un curso |
+| PUT | `/api/cursos/{id}` | Actualiza un curso |
+| DELETE | `/api/cursos/{id}` | Elimina un curso |
+
+### Niveles — `/api/niveles`  ·  Salas — `/api/salas`
+Ambos ofrecen el CRUD estándar (`GET`, `GET/{id}`, `POST`, `PUT/{id}`, `DELETE/{id}`).
+
+---
+
+## ▶️ Ejecución
 
 ```bash
-git clone https://github.com/Digital-Student-Management/ms-cursos.git
-cd ms-cursos
+mvnw.cmd spring-boot:run     # Windows
+./mvnw spring-boot:run       # Linux / macOS
+```
+
+- Documentación Swagger: **http://localhost:8082/swagger-ui.html**
+
+---
+
+## 🔗 Relación con otros servicios
+
+Consulta **ms-usuarios** (`:8089`) para validar el docente jefe de cada curso.
